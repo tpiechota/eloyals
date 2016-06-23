@@ -1,0 +1,608 @@
+<?php
+/***Set up a constant to your main application path ***/
+define("APPLICATION_PATH", "app");
+define("TEMPLATE_PATH", APPLICATION_PATH . "/view");
+
+/*** for menu item highlighting ***/
+$activeRegister = "active";
+
+/*** CONFIG DATABASE ***/
+require(APPLICATION_PATH . "/inc/db_config.php");
+
+/*** CONNECT TO THE DATABASE ***/
+include_once(APPLICATION_PATH . "/inc/db_connect.php");
+
+/*** INCLUDE REGISTRATION FORM VALIDATION FUNCTIONS ***/
+include(APPLICATION_PATH . "/inc/registrationFormValidation.php");
+
+/*** INCLUDE REGISTRATION FUNCTIONS ***/
+include(APPLICATION_PATH . "/inc/register.inc.php");
+?>
+
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="eLoyals">
+    <meta name="author" content="Tomasz Piechota">
+    <title>eLoyals - Your one stop Loyalty System</title>
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="css/bootstrap-formhelpers.css" rel="stylesheet">
+    <link href="css/sticky-footer.css" rel="stylesheet" type="text/css">
+    <link href="css/custom.css" rel="stylesheet">
+    <link href="css/modal.css" rel="stylesheet">
+    <!-- HTML5 shim for IE backwards compatibility -->
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link href="css/register.css" rel="stylesheet">
+    <!-- Fav and touch icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="img/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="img/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="img/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="img/ico/apple-touch-icon-57-precomposed.png">
+    <link rel="shortcut icon" href="img/ico/favicon.png">
+
+    <script>
+        /*** Enable or disable submit button depending on the Terms & Condition checkbox. ***/
+        function SubmitButtonToggle() {
+            var isDisabled = document.forms.registrationform.registerBtn.disabled;
+            document.forms.registrationform.registerBtn.disabled = isDisabled ? false : true;
+        }
+
+        /***
+         * Check the country field and change the caounty field accordingly.
+         * If country id = 80 (Ireland) than insert county list else enable input field.
+         ***/
+        function checkCountry() {
+
+            // Value that comes from the form (Select country drop-down)
+            var selectedCountry = _("country").value;
+
+            // div that creates space for return code
+            var countyStatus = _("countyStatus");
+
+
+            if (selectedCountry == 'x') {
+                _("county").disabled = true;
+            }else{
+
+                var ajax = ajaxObj("POST", "app/inc/reg.country.inc.php");
+
+                ajax.onreadystatechange = function () {
+
+                    if (ajaxReturn(ajax) == true) {
+
+                        if (ajax.responseText == true) {
+                            _("countyStatus").innerHTML = '<label for=\"county\">County:</label><select id=\"county\" name=\"county\" class="input-block-level"><option value=\"\">Select county</option><?php echo $county_list; ?></select><div class=\"reg-status\" id=\"countyInfo\"></div>';
+                        }else{
+                            _("countyStatus").innerHTML = '<label class=\"control-label\" for=\"county\">County:</label><input class=\"input-block-level\" type=\"text\" id=\"county\" name=\"county\" placeholder=\"Enter county name\"/><div class=\"reg-status\" id=\"countyInfo\"></div>';
+                        }
+
+                    }
+
+                };
+
+                ajax.send("selectedCountry=" + selectedCountry);
+
+            }
+        }
+    </script>
+    <!-- Send email ajax script -->
+    <script>
+       /* function validateFormFields(){
+
+            // Email Address
+            var email = _("email").value;
+            var email1 = _("email1").value;
+
+            // Password
+            var password = _("password").value;
+            var password1 = _("password1").value;
+
+            // Name & Address
+            var first_name = _("first_name").value;
+            var last_name = _("last_name").value;
+
+            // Date of Birth
+
+            // Terms & Conditions
+
+
+            var subject = _("subject").value;
+            var comment = _("message").value;
+
+            var status = _("status");
+            var fnameInfo = _("fnameInfo");
+            var lnameInfo = _("lnameInfo");
+            var emailInfo = _("emailInfo");
+            var subjectInfo = _("subjectInfo");
+            var messageInfo = _("messageInfo");
+
+            if(first_name == "" || last_name == "" || email == "" || subject == "" || comment == ""){
+                if(first_name == ""){
+                    document.getElementById('first_name').style.border= '1px solid red';
+                    fnameInfo.style.display = 'block';
+                    fnameInfo.innerHTML = "Enter your first name!";
+                    status.innerHTML = "Fill out all of the form data!";
+                }
+                if(last_name == ""){
+                    document.getElementById('last_name').style.border= '1px solid red';
+                    lnameInfo.style.display = 'block';
+                    lnameInfo.innerHTML = "Enter your last name!";
+                    status.innerHTML = "Fill out all of the form data";
+                }
+                if(email == ""){
+                    document.getElementById('email').style.border= '1px solid red';
+                    emailInfo.style.display = 'block';
+                    emailInfo.innerHTML = "Enter your email address!";
+                    status.innerHTML = "Fill out all of the form data";
+                }
+                if(subject == ""){
+                    document.getElementById('subject').style.border= '1px solid red';
+                    subjectInfo.style.display = 'block';
+                    subjectInfo.innerHTML = "Enter subject!";
+                    status.innerHTML = "Fill out all of the form data";
+                }
+                if(comment == ""){
+                    document.getElementById('message').style.border= '1px solid red';
+                    messageInfo.style.display = 'block';
+                    messageInfo.innerHTML = "Enter message!";
+                    status.innerHTML = "Fill out all of the form data";
+                }
+            } else {
+                _("send").disabled = false;
+                status.innerHTML = '<span class="sending-msg"><img src="img/spinner.png" alt="" /> Sending...</span>';
+                var ajax = ajaxObj("POST", "contact.php");
+
+                ajax.onreadystatechange = function () {
+                    if (ajaxReturn(ajax) == true) {
+                        if (ajax.responseText != "Thank you &#9786;") {
+                            status.innerHTML = ajax.responseText;
+                            //_("contactform").disabled = false;
+                        } else {
+                            <!--window.scrollTo(0,0);-->
+                            _("status").innerHTML = "Thank you &#9786;";
+                        }
+                    }
+                };
+                ajax.send("first_name="+first_name+"&last_name="+last_name+"&email="+email+"&subject="+subject+"&comment="+comment);
+            }
+        }*/
+    </script>
+</head>
+
+<body>
+<div id="termsAndConditions-modal" class="modal hide fade">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3>Terms & Conditions</h3>
+    </div>
+    <div class="modal-body">
+        <?php include(APPLICATION_PATH . "/inc/terms-conditions.inc.php"); ?>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true">Close</button>
+    </div>
+</div>
+<div class="swirls">
+<div id="wrap">
+
+<!-- HEADER MENU -->
+<?php require(TEMPLATE_PATH . "/public/header-main.php") ?>
+<!-- / HEADER MENU -->
+
+
+<!-- MAIN MENU -->
+<?php require(TEMPLATE_PATH . "/public/menu-main.php") ?>
+<!-- / MAIN MENU -->
+
+<div class="container-fluid">
+
+
+<!-------------------------------------------------------------------->
+
+<!-- Page content -->
+<div class="row-fluid">
+    <div class="span12 content">
+        <div class="span8 offset2">
+            <form name="registrationform" id="conregistrationform" onsubmit="return false;">
+
+                <!-- <fieldset>-->
+
+
+                <!-- EMAIL ADDRESS -->
+                <fieldset>
+                    <legend>Email Address</legend>
+                    <div class="row-fluid">
+                        <div class="offset1 span5">
+                            <label for="email">Email address: </label>
+                            <input class="input-block-level" type="text" id="email" name="email"
+                                   placeholder="Enter email address"/>
+
+                            <div class="reg-status" id="emailInfo"></div>
+                        </div>
+                        <div class="span5">
+                            <label class="control-label" for="email1">Confirm email: </label>
+                            <input class="input-block-level" type="text" id="email1" name="email1"
+                                   placeholder="Confirm email address"/>
+
+                            <div class="reg-status" id="email1Info"></div>
+                        </div>
+                        <div class="reg-email-info" class="span12"></div>
+                    </div>
+                </fieldset>
+
+
+                <!-- PASSWORD -->
+                <fieldset>
+                    <legend>Password</legend>
+                    <div class="row-fluid">
+                        <div class="offset1 span5">
+                            <label for="password">Password: </label>
+                            <input class="input-block-level" type="password" id="password" name="password"
+                                   placeholder="Enter password"/>
+
+                            <div class="reg-status" id="password1Info"></div>
+                        </div>
+                        <div class="span5">
+                            <label class="control-label" for="password1">Confirm password: </label>
+                            <input class="input-block-level" type="password" id="password1" name="password1"
+                                   placeholder="Confirm password"/>
+
+                            <div class="reg-status" id="password2Info"></div>
+                        </div>
+                        <div class="reg-password-info" class="span12"></div>
+                    </div>
+                </fieldset>
+
+
+                <!-- FIRST NAME & LAST NAME -->
+                <fieldset>
+                    <legend>Name & Address</legend>
+                    <div class="row-fluid">
+                        <div class="offset1 span5">
+                            <label for="first_name">First Name: </label>
+                            <input class="input-block-level" type="text" id="first_name" name="first_name"
+                                   placeholder="Enter your first name"/>
+
+                            <div class="reg-status" id="fnameInfo"></div>
+                        </div>
+                        <div class="span5">
+                            <label class="control-label" for="last_name">Last Name: </label>
+                            <input class="input-block-level" type="text" id="last_name" name="last_name"
+                                   placeholder="Enter your last name"/>
+
+                            <div class="reg-status" id="lnameInfo"></div>
+                        </div>
+                        <div class="reg-name-info" class="span12"></div>
+
+
+                        <!-- ADDRESS INFORMATION -->
+                        <div class="row-fluid">
+                            <div class="offset1 span10">
+                                <label for="address_1">Address 1: </label>
+                                <input class="input-block-level" type="text" id="address_1" name="address_1"
+                                       placeholder="Enter your address..."/>
+
+                                <div class="reg-status" id="address1Info"></div>
+                                <label for="address_2">Address 2: </label>
+                                <input class="input-block-level" type="text" id="address_2" name="address_2"
+                                       placeholder="Enter your address..."/>
+
+                                <div class="reg-status" id="address2Info"></div>
+                            </div>
+                            <div class="reg-address-info" class="span12"></div>
+                        </div>
+
+
+                        <!-- COUNTRY & COUNTY -->
+                        <div class="row-fluid">
+                            <div class="offset1 span5">
+                                <label for="country">Country: </label>
+                                <select class="input-block-level" id="country" name="country"
+                                        onchange="checkCountry();">
+                                    <option value="x" selected>Select country</option>
+                                    <?php echo $country_list; ?>
+                                </select>
+
+                                <div class="reg-status" id="countryInfo"></div>
+                            </div>
+                            <div class="span5" id="countyStatus">
+                                <label class="control-label" for="county">County:</label>
+                                <input class="input-block-level" type="text" id="county" name="county"
+                                       placeholder="Enter county name" disabled="disabled"/>
+
+                                <div class="reg-status" id="countyInfo"></div>
+                            </div>
+                            <div class="reg-countrycounty-info" class="span12"></div>
+                        </div>
+
+
+                        <!-- TOWN & POSTAL CODE -->
+                        <div class="row-fluid">
+                            <div class="offset1 span5">
+                                <label for="town">Town: </label>
+                                <input class="input-block-level" type="text" id="town" name="town"
+                                       placeholder="Enter town name"/>
+
+                                <div class="reg-status" id="townInfo"></div>
+                            </div>
+                            <div class="span5">
+                                <label for="postal_code">Postal Code: </label>
+                                <input class="input-block-level" type="text" id="postal_code" name="postal_code"
+                                       placeholder="Enter postal code"/>
+
+                                <div class="reg-status" id="postalInfo"></div>
+                            </div>
+                            <div class="reg-townpost-info" class="span12"></div>
+                        </div>
+                </fieldset>
+
+                <!-- DATE OF BIRTH -->
+                <fieldset>
+                    <legend>Date of Birth & Gender</legend>
+                    <div class="row-fluid">
+                        <div class="offset1 span5">
+                            <label for="dob">Date of Birth: </label>
+
+                            <div class="bfh-datepicker" data-format="d-m-y" data-date="17-06-1979">
+                                <div class="input-prepend bfh-datepicker-toggle" data-toggle="bfh-datepicker">
+                                    <span class="add-on"><i class="icon-calendar"></i></span>
+                                    <input id="dob" name="dob" type="text" class="input-block-level" readonly>
+                                </div>
+                                <div class="bfh-datepicker-calendar">
+                                    <table class="calendar table table-bordered">
+                                        <thead>
+                                        <tr class="months-header">
+                                            <th class="month" colspan="4">
+                                                <a class="previous" href="#"><i class="icon-chevron-left"></i></a>
+                                                <span></span>
+                                                <a class="next" href="#"><i class="icon-chevron-right"></i></a>
+                                            </th>
+                                            <th class="year" colspan="3">
+                                                <a class="previous" href="#"><i class="icon-chevron-left"></i></a>
+                                                <span></span>
+                                                <a class="next" href="#"><i class="icon-chevron-right"></i></a>
+                                            </th>
+                                        </tr>
+                                        <tr class="days-header">
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span5">
+                            <label class="control-label" for="gender">Gender:</label>
+                                <div class="btn-group" data-toggle="buttons-radio" >
+                                    <button type="button" class="btn btn-gender" data-toggle="button">
+                                        <img src="img/male.png" />&nbsp;Male
+                                        <input class="input-block-level" type="radio" name="radio-btn-ctrl" value="0" />
+                                    </button>
+                                    <button type="button" class="btn btn-gender" data-toggle="button">
+                                        <img src="img/female.png" />&nbsp;Female
+                                        <input class="input-block-level" type="radio" name="radio-btn-ctrl" value="1" />
+                                    </button>
+                                </div>
+
+                            <!--<div class="span3">
+                                <label class="radio">
+                                    <input type="radio" name="gender" id="sex0" value="0" checked>
+                                    Male
+                                </label>
+                            </div>
+                            <div class="offset2 span3">
+                                <label class="radio">
+                                    <input type="radio" name="gender" id="sex1" value="1">
+                                    Female
+                                </label>
+                            </div>-->
+                            <div class="reg-gender-info" class="span12"></div>
+                        </div>
+                        <div class="reg-postcountry-info" class="span12"></div>
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <legend>Terms & Conditions</legend>
+                    <div class="row-fluid">
+                        <div class="offset1 span10">
+                            <label class="checkbox">
+                                <input type="checkbox" id="checkBoxTerms" onclick="SubmitButtonToggle();"> I have read
+                                and agree to the <a href="#" data-toggle="modal"
+                                                    data-target="#termsAndConditions-modal">Terms and Conditions</a>
+                            </label>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <div class="row-fluid">
+                    <div class="offset2 span4">
+                        <button class="btn btn-warning input-block-level" name="registerBtn" id="registerBtn"
+                                disabled="disabled" onclick="validateFormFields();">Register
+                        </button>
+                    </div>
+                    <div class="span4">
+                        <button type="reset" id="reset" class="btn input-block-level">Reset</button>
+                    </div>
+                </div>
+                <!-- </fieldset> -->
+                <div class="row-fluid">
+                    <div class="span12 status">
+                        <span id="status"></span>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- hero-unit bottom shadow -->
+<div class="row-fluid">
+    <div class="span12 hero-unit-shadow-bottom"></div>
+</div>
+
+<!-------------------------------------------------------------------->
+
+<!-- PARTNERS -->
+<?php include(TEMPLATE_PATH . "/public/partners-main.php") ?>
+<!-- / PARTNERS -->
+
+
+</div>
+<!--/.container -->
+<div id="push"></div>
+</div>
+<!--/#wrap -->
+
+<!-- FOOTER MENU -->
+<?php require(TEMPLATE_PATH . "/public/footer-main.php") ?>
+<!-- / FOOTER MENU -->
+
+</div>
+<!--/.swirls -->
+
+
+<!-- Le javascript ================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+
+
+<script src="js/main.js"></script>
+<script src="js/ajax.js"></script>
+<script src="js/fade_effects.js"></script>
+
+<script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+<script src="js/jquery.js"></script>
+<script src="js/bootstrap-formhelpers-datepicker.js"></script>
+<script src="js/bootstrap-formhelpers-datepicker.en_US.js"></script>
+<script src="js/bootstrap-transition.js"></script>
+<script src="js/bootstrap-alert.js"></script>
+<script src="js/bootstrap-modal.js"></script>
+<script src="js/bootstrap-dropdown.js"></script>
+<script src="js/bootstrap-scrollspy.js"></script>
+<script src="js/bootstrap-tab.js"></script>
+<script src="js/bootstrap-tooltip.js"></script>
+<script src="js/bootstrap-popover.js"></script>
+<script src="js/bootstrap-button.js"></script>
+<script src="js/bootstrap-collapse.js"></script>
+<script src="js/bootstrap-carousel.js"></script>
+<script src="js/bootstrap-typeahead.js"></script>
+<script src="js/bootstrap-affix.js"></script>
+
+
+<script src="js/holder/holder.js"></script>
+<script src="js/google-code-prettify/prettify.js"></script>
+
+<script src="assets/js/application.js"></script>
+
+<script>
+    $(function () {
+        $('.modal').modalResponsiveFix({ debug: true });
+        $('.modal').touchScroll();
+    })
+</script>
+
+<!-- include jQuery + carouFredSel plugin -->
+<script src="js/carouFredSel/jquery-1.8.2.min.js"></script>
+<script src="js/carouFredSel/jquery.carouFredSel-6.2.0-packed.js"></script>
+
+<!-- optionally include helper plugins -->
+<script src="js/carouFredSel/helper-plugins/jquery.mousewheel.min.js"></script>
+<script src="js/carouFredSel/helper-plugins/jquery.touchSwipe.min.js"></script>
+<script src="js/carouFredSel/helper-plugins/jquery.transit.min.js"></script>
+<script src="js/carouFredSel/helper-plugins/jquery.ba-throttle-debounce.min.js"></script>
+
+<!-- PARTNERS - fire plugin onDocumentReady -->
+<script type="text/javascript" language="javascript">
+    $(function () {
+        //	Responsive layout, resizing the items
+        $('#partners').carouFredSel({
+            responsive: true,
+            width: '100%',
+            scroll: 1,
+            items: {
+                width: 100,
+                //height: '30%',	//	optionally resize item-height
+                visible: {
+                    min: 2,
+                    max: 6
+                }
+            }
+        });
+    });
+</script>
+<script type="text/javascript">
+    /*$('li a').click(function (e) {
+     $('#NavDisplayButton').click();
+     return false;
+     });
+     this.click( function() {  } );*/
+</script>
+<script>
+    $(".ard, .arr").on("click", function () {
+        var $this = $(this);
+        if ($this.hasClass("ard")) {
+            $this.removeClass("ard").addClass("arr");
+        }
+        else {
+            $this.removeClass("arr").addClass("ard");
+        }
+    });
+</script>
+<script>
+    function myCollapse() {
+        document.getElementById('NavDisplayButton').click();
+    }
+</script>
+<script>
+    /*
+     * Reset all warnings in the form
+     */
+    $("#reset").on('click', function () {
+
+        var status = _("status");
+        var fnameInfo = _("fnameInfo");
+        var lnameInfo = _("lnameInfo");
+        var emailInfo = _("emailInfo");
+        var subjectInfo = _("subjectInfo");
+        var messageInfo = _("messageInfo");
+
+        document.getElementById('first_name').style.border = '';
+        fnameInfo.style.display = 'none';
+        status.innerHTML = "";
+
+        document.getElementById('last_name').style.border = '';
+        lnameInfo.style.display = 'none';
+        status.innerHTML = "";
+
+        document.getElementById('email').style.border = '';
+        emailInfo.style.display = 'none';
+        status.innerHTML = "";
+
+        document.getElementById('subject').style.border = '';
+        subjectInfo.style.display = 'none';
+        status.innerHTML = "";
+
+        document.getElementById('message').style.border = '';
+        messageInfo.style.display = 'none';
+        status.innerHTML = "";
+    });
+</script>
+<script>
+    $('#map-modal').on('shown', function () {
+        google.maps.event.trigger(map, "resize");
+        map.setCenter(myLatlng);
+    });
+</script>
+<script>
+    $('div.btn-group .btn').click(function(){
+        $(this).find('input:radio').attr('checked', true);
+        //alert($('input[name=radio-btn-ctrl]:checked').val());
+    });
+</script>
+</body>
+</html>

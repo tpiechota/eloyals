@@ -1,0 +1,757 @@
+/* CSS Document */
+/*@import url('//netdna.bootstrapcdn.com/twitter-bootstrap/2.0.4/css/bootstrap-combined.min.css');*/
+@font-face {
+    font-family: "Walker Bot LDR";
+    src: local("../fonts/walker_bot_ldr.ttf"), url("../fonts/walker_bot_ldr.ttf");
+    font-weight: normal;
+}
+html {
+    height: 100%; /* Necessary for the sticky footer */
+}
+body {
+    height: 100%; /* Necessary for the sticky footer */
+    background: url("../img/bg.png") repeat 0 0;
+}
+
+#wrap {
+    background: url(../img/qr_bg.png) no-repeat 80% -80px;
+    min-height: 100%;
+    height: auto !important;
+    margin: 0 auto -140px; /* Negative indent footer by it's height */
+}
+
+.swirls {
+    width: 100%;
+    height: 100%;
+    background: url(../img/swirls2.png) no-repeat left top;
+    background-size: 100% 100%;
+}
+
+.container-fluid {
+    margin-right: auto;
+    margin-left: auto;
+    max-width: 950px;
+    position: relative;
+}
+
+a.orange {
+    color: #e06342;
+    text-decoration: none;
+}
+
+a.orange:hover {
+    color: #b73e1e;
+    text-decoration: underline;
+}
+
+.btn-primary {
+    background-color: #df5c39;
+    background-image: -moz-linear-gradient(top, #e06342, #dc512c);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#e06342), to(#dc512c));
+    background-image: -webkit-linear-gradient(top, #e06342, #dc512c);
+    background-image: -o-linear-gradient(top, #e06342, #dc512c);
+    background-image: linear-gradient(to bottom, #e06342, #dc512c);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffe06342', endColorstr='#ffdc512c', GradientType=0);
+    border-color: #dc512c #dc512c #a2371a;
+    *background-color: #dc512c;
+    /* Darken IE7 buttons by default so they stand out more given they won't have borders */
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary.active,
+.btn-primary.disabled,
+.btn-primary[disabled] {
+    background-color: #dc512c;
+    *background-color: #cd4622;
+}
+
+.btn-primary:active, .btn-primary.active {
+    background-color: #b73e1e  \9;
+}
+
+/* -------- BUTTONS ----------*/
+.btn-primary-old {
+    color: #ffffff;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+    background-color: #006dcc;
+    background-image: -moz-linear-gradient(top, #0088cc, #0044cc);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#0088cc), to(#0044cc));
+    background-image: -webkit-linear-gradient(top, #0088cc, #0044cc);
+    background-image: -o-linear-gradient(top, #0088cc, #0044cc);
+    background-image: linear-gradient(to bottom, #0088cc, #0044cc);
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff0088cc', endColorstr='#ff0044cc', GradientType=0);
+    border-color: #0044cc #0044cc #002a80;
+    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+    *background-color: #0044cc;
+    /* Darken IE7 buttons by default so they stand out more given they won't have borders */
+
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+}
+
+/* -------- NAVBAR ----------*/
+.navbar {
+    margin-top: 0;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px #000000;
+}
+
+.navbar-inner {
+    background-image: -moz-linear-gradient(top, #e26236, #dd4814);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#e26236), to(#dd4814));
+    background-image: -webkit-linear-gradient(top, #e26236, #dd4814);
+    background-image: -o-linear-gradient(top, #e26236, #dd4814);
+    background-image: linear-gradient(to bottom, #e26236, #dd4814);
+    border-radius: 0;
+}
+
+.navbar .brand {
+    font-family: "Walker Bot LDR", sans-serif;
+    font-size: 2em;
+    color: #eeeeee;
+    text-shadow: 0 1px 0 #666666;
+}
+
+.navbar .divider-vertical {
+    margin: 0 0;
+    border-left: 1px solid #dd4814;
+    border-right: 1px solid #e26236;
+}
+
+.navbar .nav > li > a {
+    float: none;
+    padding: 10px 15px 10px 15px;
+    color: #eeeeee /*#efefef*/;
+    text-decoration: none;
+    text-shadow: 0 1px 0 #e26236;
+    -webkit-transition: all 1s ease 0s;
+    -moz-transition: all 1s ease 0s;
+    -ms-transition: all 1s ease 0s;
+    -o-transition: all 1s ease 0s;
+    transition: all 1s ease 0s;
+}
+
+.navbar .nav > li > a.btn-register, .navbar .nav > li > a.btn-login {
+    float: none;
+    padding: 5px 15px 5px 15px;
+    margin-left: 5px;
+    margin-right: 5px;
+    color: #eeeeee /*#efefef*/;
+    text-decoration: none;
+    text-shadow: 0 1px 0 #e26236;
+    -webkit-transition: all 1s ease 0s;
+    -moz-transition: all 1s ease 0s;
+    -ms-transition: all 1s ease 0s;
+    -o-transition: all 1s ease 0s;
+    transition: all 1s ease 0s;
+}
+
+.navbar .nav .dropdown-toggle .caret {
+    margin-top: 8px;
+}
+
+.navbar .nav > li > a:focus, .navbar .nav > li > a:hover {
+    background-color: #C74012 /*#dd4814*/;
+    color: #ffffff;
+}
+
+.navbar .nav > .active > a, .navbar .nav > .active > a:hover, .navbar .nav > .active > a:focus {
+    color: #FFFFFF;
+    background-color: #dd4814;
+}
+
+.btn-warning.active {
+    color: rgba(255, 255, 255, 0.73);
+}
+
+.menu-btn {
+    float: right;
+}
+
+/* -------- BRAND ----------*/
+.icon-brand {
+    margin-top: 6px;
+}
+
+.brand-font {
+    font-family: "Walker Bot LDR", sans-serif;
+    font-size: 2em;
+}
+
+.big-font {
+    font-size: 5em;
+}
+
+.logo-text {
+    color: #555555;
+    text-shadow: 0 1px 0 #222222;
+    margin: 50px 0 20px 10px;
+    padding-top: 20px;
+    padding-left: 10px;
+    overflow: visible;
+    text-align: left;
+}
+
+/* -------- HEADER ----------*/
+.container-fluid .header {
+    /*background-color: #FFFFFF;*/
+    margin-bottom: 0;
+    padding-bottom: 0;
+    height: 160px;
+}
+
+.header-logo {
+    height: 137px;
+    background: url("../img/eloyals-logo.png") no-repeat 30px 27px;
+    margin-bottom: 20px;
+}
+
+.social {
+    padding-left: 10px;
+    margin: 54px 0 34px 0;
+    vertical-align: middle;
+    text-align: right;
+}
+.small-screen-logo {
+    height: 55px;
+    background: url("../img/eloyals-logo-50x55.png") no-repeat center center;
+    margin-top: 20px;
+}
+
+/* --------- HERO UNIT ---------*/
+.hero-unit {
+    padding: 10px;
+    margin: 20px auto 0 auto;
+    background-color: #ffffff;
+    border: #000000;
+    border-bottom-width: 10px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px #000000;
+    /*  background-image: url("../img/hero-unit-shader.png");
+      background-repeat: no-repeat;
+      background-position: center center;*/
+}
+
+.hero-unit-shadow-bottom {
+    height: 15px;
+    background: url("../img/hero-unit-shadow-bottom.png") no-repeat left top;
+    background-size: contain;
+    margin-bottom: 13px;
+    text-align: center;
+}
+
+.hero-unit h1 {
+    margin-bottom: 0;
+    font-size: 60px;
+    line-height: 1;
+    color: inherit;
+    letter-spacing: -1px;
+}
+
+.hero-unit li {
+    line-height: 30px;
+}
+
+.carousel-nav-left {
+    width: 79px;
+    height: 120px;
+    background: url("../img/carousel-nav.png") no-repeat -79px 0;
+}
+
+.carousel-nav-right {
+    width: 79px;
+    height: 120px;
+    background: url("../img/carousel-nav.png") no-repeat 0 0;
+}
+
+/* ----------- CAROUSEL ------------- */
+.carousel {
+    margin-bottom: 0;
+}
+
+.carousel-control {
+    position: absolute;
+    top: 40%;
+    left: 15px;
+    width: 40px;
+    height: 40px;
+    margin-top: -20px;
+    font-size: 60px;
+    font-weight: 100;
+    line-height: 30px;
+    color: #ffffff;
+    text-align: center;
+    background-color: transparent;
+    border: none;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+    opacity: 0.5;
+    filter: alpha(opacity=50);
+}
+
+.carousel-control.right {
+    left: auto;
+    right: 15px;
+}
+
+.carousel-caption {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 15px;
+    background: #333333;
+    background: rgba(0, 0, 0, 0.75);
+}
+
+.carousel-caption h4, .carousel-caption p {
+    color: #ffffff;
+    line-height: 20px;
+    opacity: 0.5;
+    filter: alpha(opacity=50);
+}
+
+.carousel-caption h4 {
+    margin: 0 0 5px;
+}
+
+.carousel-caption p {
+    margin-bottom: 0;
+}
+
+/*--------- CONTENT - BODY ----------*/
+.content {
+    background-color: #FFFFFF;
+    /*  background-image: url("../img/corner1.png");
+  background-repeat: no-repeat;
+  background-position: right top;*/
+
+    border: #000000;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
+    box-shadow: 0 2px 5px #000000;
+    padding: 10px;
+    margin-bottom: 0;
+}
+
+.content h1, .content h2 {
+    color: #df5c39;
+}
+
+.content-box-shadow-bottom {
+    height: 16px;
+    background: url("../img/content-box-shadow-bottom.png") no-repeat center top;
+    background-size: contain;
+    margin-bottom: 20px;
+}
+.bus-cus-logo {
+	max-height: 150px;
+}
+/* -------- FOOTER ----------*/
+
+footer {
+    font-family: "Courier New", Tahoma, Verdana, sans-serif;
+    color: #dddddd;
+    font-size: 13px;
+    /*text-shadow: 0px 1px 0px #000000;*/
+    background: url("../img/bg-footer.png") scroll 0 0 /*#151515*/;
+    border-top: 5px solid #E24E35;
+    margin-top: 0;
+    padding-top: 10px;
+    box-shadow: 0 2px 5px #000000 inset;
+    bottom: 0;
+    width: 100%;
+    height: 140px;
+}
+
+#push {
+    height: 140px;
+}
+
+.footer-padding {
+    padding-top: 20px;
+}
+
+footer#footer a, footer#footer a:visited, footer#footer a:active {
+    color: #DDDDDD;
+    text-decoration: none;
+    -webkit-transition: all 300ms ease 0s;
+    -moz-transition: all 300ms ease 0s;
+    -ms-transition: all 300ms ease 0s;
+    -o-transition: all 300ms ease 0s;
+    transition: all 300ms ease 0s;
+}
+
+footer#footer a:hover {
+    color: #e06342;
+    text-decoration:none;
+    -webkit-transition: all 300ms ease 0s;
+    -moz-transition: all 300ms ease 0s;
+    -ms-transition: all 300ms ease 0s;
+    -o-transition: all 300ms ease 0s;
+    transition: all 300ms ease 0s;
+}
+footer#footer li.active a {
+    color: #e06342;
+    text-decoration:none;
+}
+
+
+
+footer hr {
+    border-bottom: 1px solid #333333;
+    border-top: 1px solid #111111;
+    height: 0;
+    margin: 4px 0;
+}
+
+.copy {
+    font-family: "Courier New", Tahoma, Verdana, sans-serif;
+    color: #dddddd;
+    font-size: 12px;
+    padding-top: 5px;
+    vertical-align: middle;
+    text-align: left;
+}
+
+.nav-footer {
+    padding-top: 5px;
+    margin-left: 0;
+    margin-bottom: 0;
+    list-style: none;
+    vertical-align: middle;
+}
+
+.nav-footer li {
+    display: inline;
+}
+
+.nav-footer li a {
+    display: inline;
+}
+
+.nav-footer > li > a:hover, .nav-footer > li > a:focus {
+    text-decoration: underline;
+}
+
+.nav-footer .divider-vertical {
+    height: 10px;
+    width: 0;
+    margin: 0 9px;
+    border-left: 1px solid #f2f2f2;
+    border-right: 1px solid #ffffff;
+}
+
+.nav-footer .divider-vertical {
+    border-left-color: #333333;
+    border-right-color: #111111;
+}
+
+.social-footer {
+    padding-left: 10px;
+    margin: 0;
+    vertical-align: middle;
+    text-align: right;
+}
+
+/* ------- ICONS --------- */
+
+/* - SET 1 - */
+[class^="icon-soc-"], [class*="icon-soc-"] {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    line-height: 14px;
+    vertical-align: text-top;
+    background: url("../img/my-social-glyphicons-orange.png") no-repeat 0 0;
+    padding: 0 5px 0 5px;
+    *margin-right: 0.3em;
+}
+
+.icon-soc-youtube {
+    background-position: 0 0;
+}
+
+.icon-soc-skype {
+    background-position: -42px 0;
+}
+
+.icon-soc-twitter {
+    background-position: -84px 0;
+}
+
+.icon-soc-share {
+    background-position: -126px 0;
+}
+
+.icon-soc-rss {
+    background-position: -168px 0;
+}
+
+.icon-soc-gplus {
+    background-position: -210px 0;
+}
+
+.icon-soc-facebook {
+    background-position: -252px 0;
+}
+
+.icon-soc-bebo {
+    background-position: -294px 0;
+}
+
+.icon-soc-flickr {
+    background-position: -336px 0;
+}
+
+/* - SET 2 - */
+[class^="icon-my-"], [class*="icon-my-"] {
+    display: inline-block;
+    width: 42px;
+    height: 42px;
+    line-height: 14px;
+    vertical-align: text-top;
+    background: url("../img/soc-med-glyph.png") no-repeat 0 0;
+    *margin-right: .3em;
+}
+
+/* ------------------ Hor : Ver --*/
+.icon-my-facebook {
+    background-position: 0 -55px;
+}
+
+a:hover .icon-my-facebook {
+    background-position: 0 0;
+}
+
+.icon-my-twitter {
+    background-position: -56px -55px;
+}
+
+a:hover .icon-my-twitter {
+    background-position: -56px 0;
+}
+
+.icon-my-you {
+    background-position: -258px -55px;
+}
+
+a:hover .icon-my-you {
+    background-position: -258px 0;
+}
+
+.icon-my-rss {
+    background-position: -451px -55px;
+}
+
+a:hover .icon-my-rss {
+    background-position: -451px 0;
+}
+
+.icon-my-skype {
+    background-position: -208px -158px;
+}
+
+a:hover .icon-my-skype {
+    background-position: -208px -107px;
+}
+
+/*----- Dotted outline --------*/
+:-moz-any-link:focus {
+    outline: none;
+}
+
+button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, input[type="button"]::-moz-focus-inner, input[type="submit"]::-moz-focus-inner, input[type="file"] > input[type="button"]::-moz-focus-inner {
+    border: none;
+}
+
+button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, input[type="button"]::-moz-focus-inner, input[type="submit"]::-moz-focus-inner, input[type="file"] > input[type="button"]::-moz-focus-inner {
+    border: 0 dotted transparent;
+}
+
+/* ------ SPONSOR CAROUSEL ------ */
+.list_carousel {
+    /*	background-color: #ccc;
+        margin: 0 0 30px 60px;
+        width: 360px;*/
+}
+
+.list_carousel ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: block;
+}
+
+.list_carousel li {
+    text-align: center;
+    background-color: #ffffff;
+    /*border: 5px solid #999;
+    color: #999;*/
+    width: 55px;
+    height: 55px;
+    line-height: 55px; /* Centres vertically logo images in the sliding sponsor bar [line-height === height] */
+    padding: 0;
+    display: block;
+    float: left;
+}
+
+.list_carousel.responsive {
+    width: auto;
+    margin-left: 0;
+}
+
+.clearfix {
+    float: none;
+    clear: both;
+}
+
+.partners-shadow-bottom {
+    height: 15px;
+    background: url("../img/hero-unit-shadow-bottom.png") no-repeat left top;
+    background-size: contain;
+    margin: 0;
+    text-align: center;
+}
+
+/*
+.prev {
+	float: left;
+	margin-left: 10px;
+}
+.next {
+	float: right;
+	margin-right: 10px;
+}
+.pager {
+	float: left;
+	width: 300px;
+	text-align: center;
+}
+.pager a {
+	margin: 0 5px;
+	text-decoration: none;
+}
+.pager a.selected {
+	text-decoration: underline;
+}*/
+.timer {
+    background-color: #999;
+    height: 6px;
+    width: 0;
+}
+/*---------- MAIN PAGE BOXES UNDER THE HERO UNIT ------------*/
+.advert p:first-child{
+    text-align: center;
+}
+
+/*---------- CUSTOMERS & RETAILERS PAGES ------------*/
+.cusRet {
+    padding: 30px;
+    text-align: justify;
+}
+
+/*----------- SCREEN -------------*/
+@media (max-width: 767px) {
+    body {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .navbar-fixed-top, .navbar-fixed-bottom, .navbar-static-top {
+        margin-right: 0;
+        margin-left: 0;
+    }
+
+    /* -------- HEADER ----------*/
+    .header-height {
+        height: 100px;
+    }
+
+    .social {
+        margin: 15px 0 0 0;
+        vertical-align: middle;
+        text-align: center;
+    }
+
+    .header {
+        /*background-color: #FFFFFF;*/
+        margin-bottom: 20px;
+    }
+
+    .social-footer {
+        text-align: center;
+    }
+
+    .copy {
+        font-family: "Courier New", Tahoma, Verdana, sans-serif;
+        color: #dddddd;
+        font-size: 12px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        vertical-align: middle;
+        text-align: center;
+    }
+
+    footer {
+        font-size: 12px;
+        text-align: center; /*text-shadow: 0px 1px 0px #000000;*/
+    }
+
+    .logo-text {
+        margin-top: 20px;
+        padding-left: 0;
+        text-align: center;
+    }
+
+    .big-font {
+        font-size: 3em;
+    }
+
+    .menu-btn {
+        float: none;
+    }
+
+    /*-- CAROUSEL --*/
+    .carousel-caption {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        padding: 5px;
+        background: #333333;
+        background: rgba(0, 0, 0, 0.25);
+    }
+
+    .carousel-caption h4 {
+        font-size: 0.5em;
+    }
+
+    .carousel-caption p {
+        font-size: 0.3em;
+    }
+
+    .carousel-caption h4, .carousel-caption p {
+        color: #ffffff;
+        line-height: 1em;
+        opacity: 0.5;
+        filter: alpha(opacity=50);
+    }
+
+    .carousel-caption h4 {
+        margin: 0 0 5px;
+    }
+
+    .carousel-caption p {
+        margin-bottom: 0;
+    }
+
+    /*-- FOOTER --*/
+    #push, #footer {
+        height: 240px;
+    }
+}

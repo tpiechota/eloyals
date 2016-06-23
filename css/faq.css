@@ -1,0 +1,85 @@
+#faq-accordion a {
+    margin: 20px;
+    padding: 0;
+    color: #E24E35;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.10);
+
+}
+#faq-accordion .accordion-heading.ard .accordion-toggle{
+    padding-right: 40px;
+    background-image: url("../img/minus.png");
+    background-repeat: no-repeat;
+    background-position: 98% 1px;
+}
+#faq-accordion .accordion-heading.arr .accordion-toggle {
+    padding-right: 40px;
+    background-image: url("../img/plus.png");
+    background-repeat: no-repeat;
+    background-position: 98% 1px;
+}
+.toggle-sign {
+    border: 1px dashed #E24E35;
+    text-shadow: none;
+    font-weight: normal;
+    font-family: "courier new" ,arial, sans-serif;
+}
+
+#faq-accordion a {
+    text-decoration: none;
+}
+.accordion {
+    margin-bottom: 20px;
+    padding: 40px 0 40px 40px;
+}
+.accordion-group {
+    border-color: rgba(226, 78, 53, 0.30);
+    margin-bottom: 30px !important;
+}
+/*.accordion-heading {
+    border-bottom: none;
+    border-bottom: 1px solid #E24E35;
+}
+.accordion-heading .accordion-toggle {
+    font-size: 1.2em;
+    font-weight: normal;
+    display: block;
+    padding: 8px 15px;
+}
+.accordion-toggle {
+    cursor: pointer;
+    margin: 0 0 0 20px !important;
+    border-bottom: none;
+}
+*/.accordion-inner {
+    background-color: #fafafa;
+    color: #222222;
+    padding: 9px 15px;
+    /*border: 1px solid #E24E35;*/
+    border-top: 1px solid #E24E35;
+    /*box-shadow: 0 2px 9px #000000 inset;*/
+    -webkit-border-bottom-right-radius: 3px;
+    -webkit-border-bottom-left-radius: 3px;
+    -moz-border-radius-bottomright: 3px;
+    -moz-border-radius-bottomleft: 3px;
+    border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+.faq-advert {
+    height: 95%;
+    max-height: 95%;
+    text-align: center;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+.faq-advert p {
+    padding: 15px;
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: 1.3em;
+    color: #E24E35;
+ }
+
+.faq-advert img {
+    width: 65%;
+    margin: 15px 0 15px 0;
+}

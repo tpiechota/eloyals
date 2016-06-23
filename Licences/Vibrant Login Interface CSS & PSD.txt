@@ -1,0 +1,19 @@
+PixelsDaily
+=======================
+Name:	Vibrant Login Interface CSS & PSD
+Type:	PSD
+Author:	Martijn Otter
+
+
+Notes
+=======================
+We're really pleased with this login/register interface design. It's provided both as a PSD and as a fully-coded HTML/CSS version, so you can get started integrating it straight away.
+
+
+
+
+Free Resource Licensing
+=======================
+All our free resources are licensed under a Creative Commons Attribution license. This license lets you distribute, remix, tweak, and build upon your work, even commercially, as long as you credit PixelsDaily for the original creation:
+
+http://creativecommons.org/licenses/by/3.0/
